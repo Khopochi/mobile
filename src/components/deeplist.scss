@@ -1,0 +1,106 @@
+// ProductComponent.scss
+$mainColor: #28231D;
+$onHover: #E3242B;
+$amazongreen: #007185;
+$amazon: #f3d078;
+$amazonorange: #FF8F00;
+.fada{
+    width: 100vw;
+}
+.product-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    // margin:5px 15px;
+    // background-color: lightgray;
+  }
+  
+  .left-container {
+    width: 30vw;
+    margin-left: 16px;
+  }
+  
+  .product-image {
+    width: 30vw; /* Assuming you want a square image with a size based on viewport height */
+    height: 30vw;
+    object-fit: cover;
+    // border-radius: 8px; /* Optional: Add border radius for a rounded appearance */
+  }
+  
+  .right-container {
+    width: 70vw;
+    .product-info-d{
+        display: flex;
+        justify-content: space-between;
+    }
+    .rightright{
+        display: flex;
+        align-items: center;
+        .buttoncircle{
+            color: $amazongreen;
+            font-size: 12px;
+            margin-right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .word{
+                margin-right: 5px;
+            }
+        }
+    }
+    .product-info{
+        display: flex;
+        flex-direction: column;
+        margin-left: 1vw;
+        .name{
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .discountdeep{
+            font-size: 10px;
+            color: $onHover;
+        }
+        .actualprice{
+            font-size: 10px;
+            text-decoration: line-through;
+        }
+        .quantity {
+            position: relative;
+            font-size: 12px;
+            background-color: $onHover;
+            color: white;
+            flex: 0 0 auto;
+            padding: 2px;
+            font-weight: 500;
+          
+            &::before {
+              content: '';
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              right: -10px; /* Adjust this value to control the size of the arrow */
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-width: 5px 0 5px 8px; /* Adjust border-width for arrow size */
+              border-color: transparent transparent transparent $onHover;
+            }
+          }
+          
+        .price{
+            .mwk{
+                font-size: 8px;
+            }
+            .actualfiguredeep{
+                font-size: 13px;
+                font-weight: 700;
+            }
+        }
+    }
+  }
+  
+ 
+  
+  /* Add more styling as needed */
+  

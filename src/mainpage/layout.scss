@@ -1,0 +1,188 @@
+$mainColor: #28231D;
+$onHover: #E3242B;
+$amazongreen: #007185;
+$amazon: #f3d078;
+$amazonorange: #FF8F00;
+
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;  // Full height of the viewport
+    position: relative;
+    .loader{
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 999999;
+      background-color: white;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      font-size: 10px;
+  }
+  }
+  
+  .top {
+    background-color: rgb(238, 238, 238);  // Adjust background color
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 10px;
+    .logoandcounrey{
+      color: black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding:10px 15px;
+      flex: 1;
+      .logo {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+    .search{
+      border: 1px solid rgb(243, 243, 243);
+      padding: 10px 15px;
+      margin: 0px 10px;
+      display: flex;
+      background-color: white;
+      align-items: center;
+      border-radius: 15px;
+      position: relative;
+      .searchresults {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 100%; /* Set to 100% to position below the .search container */
+        background-color: white;
+        z-index: 9999;
+        .single{
+          padding: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .leftsingle{
+            font-size: 12px;
+          }
+          .rightsingle{
+            font-size: 10px;
+            color: $onHover;
+          }
+        }
+      }
+      input{
+        flex: 1;
+        border: none;
+        outline: none;
+      }
+      .searchicon{
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+  
+    // Example styling for logo and search field
+    
+  
+    .search-field {
+      flex: 1;
+      margin-left: 10px;  // Adjust margin as needed
+    }
+  }
+  
+  .middle {
+    flex: 1;
+    overflow: auto;  // Allows content to scroll if needed
+    // Example styling for content in the middle
+    .content {
+      // Your styles for the content go here
+    }
+  }
+  
+  .bottom {
+    background-color: white;  // Adjust background color
+    color: rgb(80, 79, 79);  // Adjust text color
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    height: 5vh;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 999999;
+
+    .activenav{
+      color: $onHover;
+    }
+    .navbutton{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .activenav{
+        color: $onHover;
+      }
+      .icon{
+        font-size: 20px;
+      }
+      .word{
+        font-size: 13px;
+      }
+    }
+    .navbutton.big {
+      position: relative;
+      // overflow: hidden;
+      width: 40px; /* Adjust width as needed */
+      height: 40px; /* Adjust height as needed */
+      background-color: $amazon; /* Adjust background color */
+      border-radius: 50%;
+      // transform: rotate(30deg);
+      margin-top: -20px; /* Half of the height to align properly */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
+      z-index: 1; /* Ensure it's on top of other navbuttons */
+      position: relative;
+      .count{
+        position: absolute;
+        top: -4px;
+        right: -2px;
+        z-index: 99999;
+        width: 20px;
+        height: 20px;
+        background-color: $onHover;
+        color: white;
+        font-size: 12px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .icon {
+        font-size: 20px;
+        color: #fff; /* Adjust icon color */
+      }
+      .word {
+        display: none; /* Hide the text inside the hexagon */
+      }
+    }
+  
+    // Example styling for navigation buttons
+    .nav-button {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      padding: 5px;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  

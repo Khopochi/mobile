@@ -1,0 +1,34 @@
+.deepcategory{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100%;
+    .loader{
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 999;
+        background-color: white;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        font-size: 10px;
+    }
+    .deepcattop{
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+}
+.deepcategory > * {
+    flex-shrink: 0;
+  }

@@ -1,0 +1,41 @@
+
+$mainColor: #28231D;
+$onHover: #E3242B;
+$amazongreen: #007185;
+$amazon: #f3d078;
+$amazonorange: #FF8F00;
+.discountcard {
+    width: 15vh;
+    height: 15vh;
+    background-color: rgb(240, 240, 240);
+    flex-shrink: 0;
+    position: relative;
+    margin-right: 10px;
+    .image{
+        width: 15vh;
+        height: 15vh;
+        img{
+            width: 15vh;
+            height: 15vh;
+        }
+    }
+    .price{
+        position: absolute;
+        height: 5vh;
+        bottom: 0.4vh;
+        left: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        .figure{
+            background-color: $onHover;
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            font-weight: 500;
+
+        }
+    }
+}

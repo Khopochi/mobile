@@ -1,0 +1,54 @@
+$mainColor: #28231D;
+$onHover: #E3242B;
+$amazongreen: #007185;
+$amazon: #f3d078;
+$amazonorange: #FF8F00;
+.Category{
+    width: 100vw;
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    .loader{
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 999;
+        background-color: white;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        font-size: 10px;
+    }
+    .left{
+        width: 30vw;
+        background-color: rgb(230, 229, 229);
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0px;
+        height: 100vh;
+        .item{
+            padding: 15px;
+            cursor: pointer;
+        }
+        .active{
+            background-color: white;
+            color: $onHover;
+            font-weight: 500;
+        }
+    }
+    .right{
+        width: 70vw;
+        margin-bottom: 10vh;
+    }
+}
+.Category > * {
+    flex-shrink: 0;
+  }

@@ -1,0 +1,55 @@
+.categoriescard{
+    min-height: 30vh;
+    width: 100vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1px solid rgb(247, 247, 247);
+    padding-bottom: 10px;
+    .topper{
+        background-color: white;
+        padding-top: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .left{
+            display: flex;
+            flex-direction: column;
+            .upper{
+                font-size: 18px;
+                color: black;
+                font-weight: 500;
+            }
+            .lower{
+                display: flex;
+                flex-direction: column;
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+    }
+    .downerr{
+        display: flex;
+        padding-left: 15px;
+        overflow-x: auto;
+        // gap: 5px;
+    }::-webkit-scrollbar {
+        width: 0px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: none;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: none;
+      }
+      
+      .downerr:hover::-webkit-scrollbar-thumb {
+        background: none;
+      }
+
+}

@@ -1,0 +1,57 @@
+$mainColor: #28231D;
+$onHover: #E3242B;
+$amazongreen: #007185;
+$amazon: #f3d078;
+$amazonorange: #FF8F00;
+
+.imageforcatcard{
+    display: flex;
+    flex-direction: column;
+    // border-radius: 8px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    .image{
+        height: 15vh;
+        width: 15vh;
+        background-color: lightgray;
+        border-radius: 8px;
+
+        img{
+            height: 15vh;
+            width: 15vh;
+            border-radius: 8px;
+
+        }
+    }
+    .details{
+        display: flex;
+        flex-direction: column;
+        font-size: 12PX;
+        font-weight: 300;
+        .price{
+            display: flex;
+            gap: 2px;
+            .mwk{
+                font-size: 8px;
+                align-self: flex-end;
+            }
+            .figureprice{
+                font-size: 10px;
+                font-weight: 500;
+            }
+        }
+        .name{
+            font-size: 8px;
+            font-weight: 500;
+        }
+        .discountprice{
+            color: $onHover;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        .typicalprice{
+            font-size: 10px;
+            text-decoration: line-through;
+        }
+    }
+}

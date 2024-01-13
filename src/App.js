@@ -1,24 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
+import Layout from './mainpage/Layout';
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import Home from './pages/home/Home';
+import Category from './pages/category/Category';
+import Deepcategory from './pages/deepcategory/Deepcategory';
+import Viewproduct from './pages/viewproduct/Viewproduct';
+import { Register } from './pages/register/Register';
+import { Login } from './pages/login/Login';
+import Cart from './pages/cart/Cart';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route path='/register/' element={<Register/>} />
+          <Route path='/cart/' element={<Cart/>} />
+          <Route path='/login/' element={<Login />} />
+          <Route path='/' element={<Layout/>}>
+            <Route index element={<Home/>} />
+            <Route path='/categories/' element={<Category/> } />
+            <Route path='/deepcategories'>
+              <Route path=':id/:name' element={<Deepcategory/>} />
+            </Route>
+          </Route>
+          <Route path='/viewproduct'>
+              <Route path=':id' element={<Viewproduct />} />
+          </Route>
+        </Routes>
+    </BrowserRouter>
   );
 }
 
