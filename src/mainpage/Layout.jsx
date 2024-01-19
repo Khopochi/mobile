@@ -8,11 +8,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FadeLoader } from 'react-spinners'
 import { AuthContext } from '../context/AuthContext';
-<<<<<<< HEAD
 import logo from '../image/Jia Bai Li World-3.png'
-=======
-const logo = '../images/logo.png'
->>>>>>> a47700e53d2fd57e3812df8e7966018fea8b918f
 
 
 
@@ -127,11 +123,7 @@ const Layout = () => {
         <div className="top">
             <div className="logoandcounrey">
                 <div className="logo">
-<<<<<<< HEAD
                     <img className='ourlogo' src={logo} alt="" /> <span className='jiabaili'>JiaBaiLi</span> 
-=======
-                    <img src={logo} alt="" />
->>>>>>> a47700e53d2fd57e3812df8e7966018fea8b918f
                 </div>
                 <div className="flag">
                     <span className="fi fi-mw"></span>
