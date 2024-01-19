@@ -4,6 +4,7 @@ import Discountcard from '../../components/Discountcard';
 import Categoriescard from '../../components/Categoriescard';
 import axios from 'axios';
 import { FadeLoader } from 'react-spinners'
+<<<<<<< HEAD
 import icon1 from '../../image/5988246.png'
 import icon2 from '../../image/kitchen.png'
 import icon3 from '../../image/crane.png'
@@ -18,6 +19,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import DiscountShope from '../../components/DiscountShope';
 import CardCategory from '../../components/CardCategory';
+=======
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import GppGoodOutlinedIcon from '@mui/icons-material/GppGoodOutlined';
+>>>>>>> a47700e53d2fd57e3812df8e7966018fea8b918f
 
 const Home = () => {
     const [load,setLoader] = useState(true)
@@ -142,6 +149,7 @@ const Home = () => {
             />
         ))}
         </div>
+<<<<<<< HEAD
         <div className="shopdeeSubcategories">
            <div className="shopdeeitem">
               <div className="shopdicon"> 
@@ -238,6 +246,44 @@ const Home = () => {
 
 
         {/* <div className="discount">
+=======
+        <div className="ourparteners">
+          <div className="partholder">
+              <div className="partitem">
+                 <div className="particon"><PeopleOutlineOutlinedIcon fontSize='large'/></div>
+                 <div className="partword">Buyers countrywide</div>
+              </div>
+              <div className="partitem">
+                 <div className="particon"><LocalShippingOutlinedIcon fontSize='large'/></div>
+                 <div className="partword">Fast Delivery</div>
+              </div>
+              <div className="partitem">
+                 <div className="particon"><CreditCardOutlinedIcon fontSize='large'/></div>
+                 <div className="partword">Safe Payments</div>
+              </div>
+              <div className="partitem">
+                 <div className="particon"><GppGoodOutlinedIcon fontSize='large'/></div>
+                 <div className="partword">Buyer Protection</div>
+              </div>
+          </div>
+        </div>
+
+        <div className="newdiscount">
+          <div className="left-new">
+            <div className="img">
+              <img src="https://api.jiabaili.shop/api/photos/159274_MG_0811.jpg" alt="" />
+
+            </div>
+          </div>
+          <div className="right">
+            <div className="topright">
+              The Best Product are here
+            </div>
+          </div>
+
+        </div>
+        <div className="discount">
+>>>>>>> a47700e53d2fd57e3812df8e7966018fea8b918f
             <div className="title">
                 <div className="father">Best deals</div>
                 <div className="son">Up to 30% discount</div>
@@ -252,12 +298,34 @@ const Home = () => {
 
         </div>
         <div className="categorymother">
+<<<<<<< HEAD
             {
                 homeData?.map((item,index)=>(
                     <Categoriescard key={index} data={item}/>
                 ))
             }
         </div> */}
+=======
+    {homeData?.map((item, index) => (
+        <React.Fragment key={index}>
+            <Categoriescard data={item} />
+            {(index + 1) % 2 === 0 && (
+                <div className="image-sliderrr2">
+                    {images.map((image, i) => (
+                        <img
+                            key={i}
+                            src={image}
+                            alt={`Image ${i + 1}`}
+                            className={i === currentIndex ? 'active' : ''}
+                            style={{ transform: `translateY(${(i - currentIndex) * 100}%)` }}
+                        />
+                    ))}
+                </div>
+            )}
+        </React.Fragment>
+    ))}
+</div>
+>>>>>>> a47700e53d2fd57e3812df8e7966018fea8b918f
     </div>
   )
 }
