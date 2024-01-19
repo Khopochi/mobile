@@ -24,25 +24,33 @@ const Category = () => {
     const [subcategory,setsubcategory] = useState(storedsub ? JSON.parse(storedsub) : null)
     const [deepcategories,setdeepcategories] = useState(storeddeepcate ? JSON.parse(storeddeepcate) : null)
     const getdataDeep = async () => {
-        try{
-            const res = await axios.get(process.env.REACT_APP_API_URL+"product/mobiledeepcategories")
-            setdeepcategories(res.data)
-            sessionStorage.setItem('deepcategoriesjiabaili', JSON.stringify(res.data));
-        }catch(err){
+        if(storeddeepcate){
 
+        }else{
+            try{
+                const res = await axios.get(process.env.REACT_APP_API_URL+"product/mobiledeepcategories")
+                setdeepcategories(res.data)
+                sessionStorage.setItem('deepcategoriesjiabaili', JSON.stringify(res.data));
+            }catch(err){
+    
+            }
         }
     }
     const getdata = async () => {
-        try{
-            const res = await axios.get(process.env.REACT_APP_API_URL+"product/mobilecategories")
-            setdata(res.data)
-            sessionStorage.setItem('datamasterjiabaili', JSON.stringify(res.data));
-            setsubcategory(res.data.subcategories)
-            sessionStorage.setItem('categoriesdatajiabaili', JSON.stringify(res.data.subcategories));
-            setLoader(false)
+        if(storeddata){
 
-        }catch(err){
-
+        }else{
+            try{
+                const res = await axios.get(process.env.REACT_APP_API_URL+"product/mobilecategories")
+                setdata(res.data)
+                sessionStorage.setItem('datamasterjiabaili', JSON.stringify(res.data));
+                setsubcategory(res.data.subcategories)
+                sessionStorage.setItem('categoriesdatajiabaili', JSON.stringify(res.data.subcategories));
+                setLoader(false)
+    
+            }catch(err){
+    
+            }
         }
     }
     useEffect(()=>{

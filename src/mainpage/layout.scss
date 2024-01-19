@@ -42,8 +42,17 @@ $amazonorange: #FF8F00;
       padding:10px 15px;
       flex: 1;
       .logo {
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        .ourlogo{
+          width: 7vw;
+          height: 7vw;
+        }
+        .jiabaili{
+          font-weight:500;
+        }
       }
     }
     .search{

@@ -8,6 +8,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FadeLoader } from 'react-spinners'
 import { AuthContext } from '../context/AuthContext';
+import logo from '../image/Jia Bai Li World-3.png'
 
 
 
@@ -17,7 +18,7 @@ const Layout = () => {
     const [load,setLoader] = useState(true)
     const [activebutton,setbutton] = useState(() => {
         // Load the active button from localStorage on component mount
-        return localStorage.getItem('activeButton') || "home";
+        return sessionStorage.getItem('activeButton') || "home";
       })
     const setActive = (name,location) => {
         setbutton(name)
@@ -38,7 +39,7 @@ const Layout = () => {
         getCount()
     },[])
     useEffect(() => {
-        localStorage.setItem('activeButton', activebutton);
+        sessionStorage.setItem('activeButton', activebutton);
       }, [activebutton]);
 
       const [searchWord, setSearchWord] = useState()
@@ -122,7 +123,7 @@ const Layout = () => {
         <div className="top">
             <div className="logoandcounrey">
                 <div className="logo">
-                    JiaBaiLi Supermarket
+                    <img className='ourlogo' src={logo} alt="" /> <span className='jiabaili'>JiaBaiLi</span> 
                 </div>
                 <div className="flag">
                     <span className="fi fi-mw"></span>
@@ -166,7 +167,7 @@ const Layout = () => {
             <div className="navbutton">
                 <div className="icon"><FontAwesomeIcon icon={faUser} /></div>
                 {user && <div className="word">Me</div>}
-                {!user && <div onClick={navigate("/login/")} className="word">Sign In</div>}
+                {!user && <div onClick={()=>navigate("/login/")} className="word">Sign In</div>}
             </div>
         </div>
     </div>
