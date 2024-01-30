@@ -39,7 +39,7 @@ const Deeplist = ({data}) => {
             <span className='quantity'>In stock | {data.quantity}</span>
             <span className='price'><span className="mwk">MWK</span> <span className="actualfiguredeep">{calculateDiscountedPrice(data.price,data.discount)}</span></span>
             <span className="discountdeep">10% discount</span>
-            <div className="actualprice">MWK 8,500</div>
+            <div className="actualprice">MWK {data.price}</div>
         </div>
         <div className="rightright">
             <div className="buttoncircle">

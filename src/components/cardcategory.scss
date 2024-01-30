@@ -66,31 +66,49 @@ $amazonorange: #FF8F00;
         margin-right: 15px;
         background-color: lightgray;
         height: 20vw;
+        .cccoverinside{
+          width: 100%;
+          z-index: 999;
+          height: 20vw;
+          background-size: cover; /* Adjust as needed */
+          background-position: center; /* Adjust as needed */
+          img{
+            height: 20vw;
+            width: 100%;
+            object-fit: cover;
+            z-index: 999;
+          }
+        }
+
+        
     }
     .loading {
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .loading::before {
-        content: "";
-        position: absolute;
-        top: 0;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .loading::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, transparent 0%, #f0f0f0 50%, transparent 100%);
+      animation: shimmer 1.5s infinite linear;
+      z-index: -1; /* Set the z-index to a value lower than the child elements */
+    }
+    
+    @keyframes shimmer {
+      0% {
         left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to right, transparent 0%, #f0f0f0 50%, transparent 100%);
-        animation: shimmer 1.5s infinite linear;
       }
-      
-      @keyframes shimmer {
-        0% {
-          left: -100%;
-        }
-        100% {
-          left: 100%;
-        }
+      100% {
+        left: 100%;
       }
+    }
+    
 
 
 

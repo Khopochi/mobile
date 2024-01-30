@@ -31,7 +31,7 @@ const DiscountShope = ({data}) => {
     <div onClick={()=>viewProduct()} className='discountshope'>
         <div className="shimage">
             <img src={"https://api.jiabaili.shop/api/photos/"+data.photos[0]} alt="" />
-            <div className="disfigure">10%</div>
+            <div className="disfigure">{data.discount}%</div>
             <div className="quantitysh">{data.quantity} Qty</div>
         </div>
         <div className="shopdetails">

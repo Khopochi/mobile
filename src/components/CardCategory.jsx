@@ -4,13 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons'
 import Discountcardcard from './Discountcardcard'
+import { useNavigate } from 'react-router-dom'
 
 const CardCategory = ({data}) => {
+  const navigate = useNavigate()
   return (
     <div className='cardcategory'>
       <div className="cctop">
-        <div className="cctopleft">{data.category.name}</div>
-        <div className="cctopright"><span>View more</span>  <FontAwesomeIcon icon={faAngleRight} /></div>
+        <div onClick={()=>navigate("/categories/"+data.category._id)} className="cctopleft">{data.category.name}</div>
+        <div className="cctopright"><span onClick={()=>navigate("/categories/"+data.category._id)}>View more</span>  <FontAwesomeIcon icon={faAngleRight} /></div>
       </div>
       <div className="ccnegotiator">
         <div className="itemccn">
@@ -27,8 +29,8 @@ const CardCategory = ({data}) => {
         </div>
       </div>
       <div className="cccover loading">
-            <div className="cccoverinside">
-
+            <div className="cccoverinside" style={{ backgroundImage: `url(https://api.jiabaili.shop/api/photos/${data.category._id}.jpg)` }}>
+                
             </div>
         </div>
         <div className="imageproductsarae">

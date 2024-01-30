@@ -24,7 +24,8 @@ const Discountcard = ({data}) => {
   return (
     <div onClick={()=>viewProduct()} className='discountcard'>
         <div className="image">
-            <img  src={"https://api.jiabaili.shop/api/photos/"+data.photos[0]} alt="" />
+            {/* <img  src={"https://api.jiabaili.shop/api/photos/"+data.photos[0]} alt="" /> */}
+            <img  src={"http://localhost:8080/api/photos/"+data.photos[0]} alt="" />
         </div>
         <div className="price">
             <div className="figure">

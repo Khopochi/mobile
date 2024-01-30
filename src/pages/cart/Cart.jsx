@@ -10,6 +10,8 @@ import parse from 'html-react-parser';
 import { FadeLoader } from 'react-spinners';
 import { SingleCart } from '../../components/cartpopy/SingleCart';
 import { io } from 'socket.io-client';
+import logo from '../../image/Jia Bai Li World-3.png'
+
 
 
 
@@ -402,7 +404,7 @@ const Cart = () => {
       <div className="top">
           <div className="logoandcounrey">
               <div className="logo">
-                  JiaBaiLi Supermarket
+              <img className='ourlogo' src={logo} alt="" /> <span className='jiabaili'>JiaBaiLi</span> 
               </div>
               <div className="flag">
                   <span className="fi fi-mw"></span>

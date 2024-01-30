@@ -8,6 +8,7 @@ import { AuthContext } from '../../context/AuthContext';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import parse from 'html-react-parser';
 import { FadeLoader } from 'react-spinners';
+import logo from '../../image/Jia Bai Li World-3.png'
 
 
 
@@ -333,7 +334,8 @@ const Viewproduct = () => {
       <div className="top">
           <div className="logoandcounrey">
               <div className="logo">
-                  JiaBaiLi Supermarket
+              <img className='ourlogo' src={logo} alt="" /> <span className='jiabaili'>JiaBaiLi</span> 
+
               </div>
               <div className="flag">
                   <span className="fi fi-mw"></span>
@@ -379,7 +381,7 @@ const Viewproduct = () => {
           <span className="mwk">MWK</span>
           <span className="product-price">{calculateDiscountedPrice(product.price,product.discount)}</span>
           <span className="typical-product">MWK{formatNumberWithCommas(product.price)}</span>
-          <span className="product-discount">50% Off</span>
+          <span className="product-discount">{product.discount}% Off</span>
         </div>
         <div className="taxer-inclusive">Price tax inclusive</div>
         <div className="delivermessage">

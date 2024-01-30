@@ -9,6 +9,8 @@ import Viewproduct from './pages/viewproduct/Viewproduct';
 import { Register } from './pages/register/Register';
 import { Login } from './pages/login/Login';
 import Cart from './pages/cart/Cart';
+import Productsearch from './pages/search/Productsearch';
+import Categorysearch from './pages/search/Categorysearch';
 
 
 function App() {
@@ -24,10 +26,18 @@ function App() {
             <Route path='/deepcategories'>
               <Route path=':id/:name' element={<Deepcategory/>} />
             </Route>
+            
           </Route>
           <Route path='/viewproduct'>
               <Route path=':id' element={<Viewproduct />} />
           </Route>
+          <Route path='/search'>
+              <Route path=':id' element={<Productsearch />} />
+          </Route>
+          <Route path='/categories'>
+              <Route path=':id' element={<Categorysearch />} />
+          </Route>
+          
         </Routes>
     </BrowserRouter>
   );
