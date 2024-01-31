@@ -165,7 +165,8 @@ const Layout = () => {
                 <div className="word">Orders</div>
             </div>
             <div className="navbutton">
-                <div className="icon"><FontAwesomeIcon icon={faUser} /></div>
+                {user && <div className="icon"><FontAwesomeIcon icon={faUser} /></div>}
+                {!user && <div onClick={()=>navigate("/login/")} className="icon"><FontAwesomeIcon icon={faUser} /></div>}
                 {user && <div className="word">Me</div>}
                 {!user && <div onClick={()=>navigate("/login/")} className="word">Sign In</div>}
             </div>

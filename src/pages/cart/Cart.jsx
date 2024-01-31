@@ -1,4 +1,4 @@
-import { faMagnifyingGlass, faShop } from '@fortawesome/free-solid-svg-icons';
+import { faCircleExclamation, faMagnifyingGlass, faShop, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useContext, useEffect, useRef, useState } from 'react'
@@ -7,10 +7,11 @@ import './cart.scss'
 import { AuthContext } from '../../context/AuthContext';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import parse from 'html-react-parser';
-import { FadeLoader } from 'react-spinners';
+import { ClipLoader, FadeLoader } from 'react-spinners';
 import { SingleCart } from '../../components/cartpopy/SingleCart';
 import { io } from 'socket.io-client';
 import logo from '../../image/Jia Bai Li World-3.png'
+import { faCheckSquare, faCircleCheck, faSquare } from '@fortawesome/free-regular-svg-icons';
 
 
 
@@ -116,7 +117,7 @@ const Cart = () => {
         setCredentials((prev) => ({...prev, [e.target.id]: e.target.value}))
     }
     useEffect(()=>{
-        if (credentials.searchTerm != " ") {
+        if (credentials.searchTerm != "") {
             const delayTimer = setTimeout(() => {
               getSearchItem();
             }, 500); // Adjust the delay based on your needs (e.g., 500 milliseconds)
@@ -276,9 +277,10 @@ const Cart = () => {
             const orderinfo = {
                 userid: user._id,
                 cart: userCart,
-                total: calculateTotal(carts),
+                total: calculateTotal(carts) + cost,
                 status: "Waiting payment",
-                phone: user.phonenumber
+                phone: numberfinal,
+                location: selectedl.location
             }
             setLoadingTop(true)
             try{
@@ -293,15 +295,17 @@ const Cart = () => {
             const orderinfo = {
                 userid: user._id,
                 cart: userCart,
-                total: calculateTotal(carts),
+                total: calculateTotal(carts) + cost,
                 status: "Waiting payment",
-                phone: user.phonenumber,
+                phone: numberfinal,
                 std: {
                     action: "AUTH",  
                     amount : { currencyCode : "MWK", value : calculateTotalSTD(carts) },
-                }
+                },
+                location: selectedl.location
             }
             setLoadingTop1(true)
+            setstd(true)
             try{
                 const res = await axios.post(process.env.REACT_APP_API_URL+"transaction/stdbank",orderinfo)
                 setIframe(res.data.order._links.payment.href)
@@ -312,6 +316,7 @@ const Cart = () => {
             }
         }
       }
+      const [std,setstd] = useState(false)
 
       //console.log(userCart)
       const [orderid, setorderid] = useState()
@@ -387,13 +392,209 @@ const Cart = () => {
         }
       },[code])
 
+      const [search,setSearch] = useState()
+      const [searchterm,setsearchterm] = useState({
+          term: ""
+      })
 
- 
+      const SerachFu = async () => {
+        console.log(searchterm.term)
+          const res = await axios.get(process.env.REACT_APP_API_URL+"SHIPPING/SEARCH/"+searchterm.term)
+          setSearch(res.data)
+      }
+
+      const [loca,showloca] = useState(false)
+
+      useEffect(()=>{
+          if(searchterm.term.length > 0){
+            SerachFu()
+          }
+      },[searchterm.term])
+
+      const handleChangee = (e) => {
+        setsearchterm((prev) => ({...prev, [e.target.id]: e.target.value}))
+    }
+
+    const [selectedl,setselected] = useState()
+    const [cost,setcost] = useState()
+
+      // Calculate total weight for each item and sum them up
+      const calculateTotalWeight = (cat) => {
+        let totalWeight = 0;
+    
+        cat.forEach((item) => {
+          // Assuming each item in the cart has properties 'weight' and 'quantity'
+          const itemWeight = item.weight * item.quantity;
+          totalWeight += itemWeight;
+        });
+    
+        return totalWeight;
+      };
+
+      //calculte charge
+      const calculateCost = (chargeRanges,weight) => {
+        // Find the charge object that matches the weight range
+        const matchingCharge = chargeRanges.find(charge => weight >= charge.minweight && weight < charge.maxweight);
+    
+        // If a matching charge is found, return its cost; otherwise, return an appropriate message or value
+        return matchingCharge ? (matchingCharge.cost === 0 ? '0.00' : matchingCharge.cost) : 'No';
+      };
+    useEffect(()=>{
+        if(selectedl?._id.length > 0){
+            setcost(calculateCost(selectedl.charge, calculateTotalWeight(carts)))
+            console.log(calculateCost(selectedl.charge, calculateTotalWeight(carts)))
+        }
+    },[selectedl])
 
 
+    //continue
+    const [cStatus, setCstatus] = useState(false)
+    const [numberfinal, setNumberfinal] = useState(user.phonenumber)
+
+    const [typenumber, setTypenumber] = useState(true)
+
+    useEffect(()=>{
+        if((selectedPay) && (selectedPay == "airtel")){
+          const nstring = user.phonenumber.toString()
+          if(nstring.charAt(0) === '9'){
+             setTypenumber(true)
+          }else{
+            setTypenumber(false)
+          }
+        }
+    },[selectedPay])
+
+    const [value, setValue] = useState('');
+    const handleInputChangev = (e) => {
+        setValue(e.target.value.replace(/[^0-9]/g, ''));
+        setNumberfinal(e.target.value.replace(/[^0-9]/g, ''))
+
+      };
+
+      const enteranother = () => {
+        if(numberfinal.length >= 9){
+           setTypenumber(true)
+        }
+      }
+    
+
+    const closeloca = () => {
+      setselected(undefined)
+      // setcost(undefined)
+      // setCstatus(false)
+      // setTypenumber(false)
+      setValue("")
+      showloca(false)
+      
+    }
   
   return (
     <>
+    {iframe && <div className="fadaiframe">
+            {
+                iframe && <iframe
+                src={iframe}
+                title="External Website"
+                className='iframestd'
+                frameBorder="0"
+                allowFullScreen
+            ></iframe>
+            }
+        </div>}
+    {loadingtop &&  <div className="airtelpage">
+            {!code && <div className="onloading">
+                    <span className="icon"><ClipLoader color="#E3242B" /></span>
+                    <span className="word">Waiting for payment...</span>
+            </div>}
+            {(code === "TF") && <div className="onfaled">
+                    <span className="icon"><FontAwesomeIcon className="icon" icon={faCircleExclamation} /></span>
+                    <span className="failed">Failed: {codemessage} </span>
+            </div>}
+            {(code === "TS") && <div className="onSuccess">
+                    <span className="icon"><FontAwesomeIcon className="icon" icon={faCircleCheck} /></span>
+                    <span className="failed">Payment received</span>
+            </div>}
+        </div>}
+        {loadingtop1 &&  <div className="airtelpage">
+            {!code && <div className="onloading">
+                    <span className="icon"><ClipLoader color="#E3242B" /></span>
+                    <span className="word">Conneting to Standard Bank...</span>
+            </div>}
+            {(code === "TF") && <div className="onfaled">
+                    <span className="icon"><FontAwesomeIcon className="icon" icon={faCircleExclamation} /></span>
+                    <span className="failed">Failed: {codemessage} </span>
+            </div>}
+            {(code === "TS") && <div className="onSuccess">
+                    <span className="icon"><FontAwesomeIcon className="icon" icon={faCircleCheck} /></span>
+                    <span className="failed">Payment received</span>
+            </div>}
+        </div>}
+    {(loca && !(loadingtop || std)) && <div className="location">
+      <div className="divbody">
+        <div  className="closer"><FontAwesomeIcon onClick={()=>closeloca()} icon={faX} /> </div>
+        {!cost && <div className="titlediv">Select your location</div>}
+        {!cost && <input type="text" id='term' onChange={handleChangee} placeholder='Search your location...'/>}
+        {(search && !cost) && <div className="divresults">
+          <div className="resultstitle">AVailable locations</div>
+          {
+            search.map((item,index)=>(
+                <div key={index} onClick={()=>setselected(item)} className="locationitem">{item.location}</div>
+            ))
+          }
+        </div>}
+        {(cost && !cStatus) && <div className="info">
+          {(cost != 0.00 && cost != "No") && <span className="total">A delivery fee of MWK {formatNumberWithCommas(cost)} will be added to your inital total</span>}
+          {(cost == 0.00 && cost != "No") && <span className="total">Delivery to your location is free of charge</span>}
+          {(cost == "No") && <span className="total">Delivery to your location for specified weight is not available</span>}
+          {(cost != "No") && <span onClick={()=>setCstatus(true)} className="btn">Continue</span>}
+
+        </div>}
+        {cStatus && <div className="paymentoptions">
+                        <div className="title">Select Payment option</div>
+                        <div className="tickarea">
+                            <span className="optionpay">
+                                <span onClick={()=>setPayOption("airtel")} className="iconpay">
+                                {selectedPay === 'airtel' ? (
+                                    <FontAwesomeIcon icon={faCheckSquare} />
+                                ) : (
+                                    <FontAwesomeIcon icon={faSquare} />
+                                )}</span>
+                                <span onClick={()=>setPayOption("airtel")}  className="wordpay">Airtel Money</span>
+                            </span>
+                            <span className="optionpay">
+                                <span onClick={()=>setPayOption("STD")} className="iconpay">{selectedPay === 'STD' ? (
+                                    <FontAwesomeIcon icon={faCheckSquare} />
+                                ) : (
+                                    <FontAwesomeIcon icon={faSquare} />
+                                )}</span>
+                                <span onClick={()=>setPayOption("STD")} className="wordpay">Standard Bank</span>
+                            </span>
+
+                        </div>
+        </div>}
+        {cStatus && <div className="paymentnow">
+                        {(selectedPay && cartLoaded) && <button onClick={()=>payOrder()}>Pay Now</button>}
+                        {(selectedPay && !cartLoaded) && <button >Loading cart...</button>}
+                        {!selectedPay && <button>select payment method</button>}
+        </div>}
+
+        {!typenumber && <div className="addnumber">
+          <div className="childediv">
+            <input type="text"  maxLength={9} value={value} onChange={handleInputChangev} placeholder='Enter airtel number...' />
+            <div onClick={()=>enteranother()} className="doneEnter">Enter</div>
+          </div>
+
+        </div>}
+
+      </div>
+    </div>}
+    {
+      !carts && <div className="loader">
+          {/* <BeatLoader color="hsla(351, 84%, 49%, 1)" /> */}
+          <FadeLoader color="#E3242B" />
+          loading cart...
+      </div>
+    }
     {
       carts && <div className='viewproduct'>
         {loader && <div className="loaderv">
@@ -427,7 +628,7 @@ const Cart = () => {
       <div className="middle">
         <div className="topperheading">
             <div className="heading">Shopping Cart</div>
-            <div className="yutter">{carts.length} items in cart</div>
+            <div className="yutter">{carts.length} items in cart | Total Weight {calculateTotalWeight(carts)} (KGs)</div>
         </div>
         <div className="dsher">
             
@@ -443,14 +644,14 @@ const Cart = () => {
         </div>
 
       </div>
-      <div className="bottom">
+      {(carts.length > 0) && <div className="bottom">
           <div className="buttom-items">
               MWK {formatNumberWithCommas(calculateTotal(carts))}
           </div>
-          <div className="bottom-word">
+          <div onClick={()=>showloca(true)} className="bottom-word">
               Pay
           </div>
-      </div>
+      </div>}
     
   </div>
     }
