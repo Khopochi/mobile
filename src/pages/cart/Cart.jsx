@@ -243,7 +243,7 @@ const Cart = () => {
         return total;
       }
 
-      const calculateTotalSTD = (arr) => {
+      const calculateTotalSub = (arr,cost) => {
         if (!Array.isArray(arr) || arr.length === 0) {
           return 0; // Return 0 for an empty or non-array input
         }
@@ -251,7 +251,18 @@ const Cart = () => {
         // Use reduce to sum up the values of the 'total' field
         const total = arr.reduce((acc, obj) => acc + (obj.cartTotal || 0), 0);
       
-        return total * 100;
+        return total + (parseFloat(cost) || 0);
+      }
+
+      const calculateTotalSTD = (arr,cost) => {
+        if (!Array.isArray(arr) || arr.length === 0) {
+          return 0; // Return 0 for an empty or non-array input
+        }
+      
+        // Use reduce to sum up the values of the 'total' field
+        const total = arr.reduce((acc, obj) => acc + (obj.cartTotal || 0), 0);
+      
+        return (total + (parseFloat(cost) || 0)) * 100;
       }
 
       const [newData,setData] = useState(true)
@@ -274,10 +285,11 @@ const Cart = () => {
 
        
         if(selectedPay === "airtel"){
+          console.log(calculateTotalSub(carts,cost))
             const orderinfo = {
                 userid: user._id,
                 cart: userCart,
-                total: calculateTotal(carts) + cost,
+                total: calculateTotalSub(carts,cost),
                 status: "Waiting payment",
                 phone: numberfinal,
                 location: selectedl.location
@@ -295,12 +307,12 @@ const Cart = () => {
             const orderinfo = {
                 userid: user._id,
                 cart: userCart,
-                total: calculateTotal(carts) + cost,
+                total: calculateTotalSub(carts,cost),
                 status: "Waiting payment",
                 phone: numberfinal,
                 std: {
                     action: "AUTH",  
-                    amount : { currencyCode : "MWK", value : calculateTotalSTD(carts) },
+                    amount : { currencyCode : "MWK", value : calculateTotalSTD(carts,cost) },
                 },
                 location: selectedl.location
             }
@@ -437,7 +449,7 @@ const Cart = () => {
         const matchingCharge = chargeRanges.find(charge => weight >= charge.minweight && weight < charge.maxweight);
     
         // If a matching charge is found, return its cost; otherwise, return an appropriate message or value
-        return matchingCharge ? (matchingCharge.cost === 0 ? '0.00' : matchingCharge.cost) : 'No';
+        return matchingCharge ? (matchingCharge.cost === 0 ? "0.00" : matchingCharge.cost) : 'No';
       };
     useEffect(()=>{
         if(selectedl?._id.length > 0){
@@ -535,16 +547,53 @@ const Cart = () => {
         {!cost && <div className="titlediv">Select your location</div>}
         {!cost && <input type="text" id='term' onChange={handleChangee} placeholder='Search your location...'/>}
         {(search && !cost) && <div className="divresults">
-          <div className="resultstitle">AVailable locations</div>
+          <div className="resultstitle">Available locations</div>
+          <div className="resultavailable">
           {
             search.map((item,index)=>(
                 <div key={index} onClick={()=>setselected(item)} className="locationitem">{item.location}</div>
             ))
           }
+          </div>
+         
         </div>}
         {(cost && !cStatus) && <div className="info">
-          {(cost != 0.00 && cost != "No") && <span className="total">A delivery fee of MWK {formatNumberWithCommas(cost)} will be added to your inital total</span>}
-          {(cost == 0.00 && cost != "No") && <span className="total">Delivery to your location is free of charge</span>}
+          {(cost != 0.00 && cost != "No") && 
+              <span className="total">
+
+                <span className="thading">Total details</span>
+                <span className="tproduct">
+                  <div className="leftp">
+                    <div className="leutem">Total for goods</div>
+                    <div className="leutem">Total KGs</div>
+                    <div className="leutem">Delivery Fee | {selectedl.location}</div>
+                    <div className="leutem ll">Total</div>
+                  </div>
+                  <div className="rightp">
+                    <div className="iermhfh">MWK {formatNumberWithCommas(calculateTotal(carts))}</div>
+                    <div className="iermhfh">{calculateTotalWeight(carts)}KGs</div>
+                    <div className="iermhfh">MWK {formatNumberWithCommas(calculateCost(selectedl.charge, calculateTotalWeight(carts)))}</div>
+                    <div className="iermhfh ll">MWK {formatNumberWithCommas(calculateTotalSub(carts,cost))}</div>
+                  </div>
+                </span>
+              </span>}
+          {(cost == 0.00 && cost != "No") && <span className="total">
+              <span className="thading">Total details</span>
+              <span className="tproduct">
+                <div className="leftp">
+                  <div className="leutem">Total for goods</div>
+                  <div className="leutem">Total KGs</div>
+                  <div className="leutem">Delivery Fee | {selectedl.location}</div>
+                  <div className="leutem ll">Total</div>
+                </div>
+                <div className="rightp">
+                  <div className="iermhfh">MWK {formatNumberWithCommas(calculateTotal(carts))}</div>
+                  <div className="iermhfh">{calculateTotalWeight(carts)}KGs</div>
+                  <div className="iermhfh">Free</div>
+                  <div className="iermhfh ll">MWK {formatNumberWithCommas(calculateTotalSub(carts,cost))}</div>
+                </div>
+              </span>
+              </span>}
           {(cost == "No") && <span className="total">Delivery to your location for specified weight is not available</span>}
           {(cost != "No") && <span onClick={()=>setCstatus(true)} className="btn">Continue</span>}
 
