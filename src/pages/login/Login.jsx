@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../image/Jia Bai Li World-3.png'
 
 
 export const Login = () => {
@@ -101,8 +102,8 @@ export const Login = () => {
         {loader && <div className="loaderb">
             <BeatLoader color="hsla(42, 89%, 65%, 1)" />
         </div>}
-        <div className="title">
-            Jiabaili Supeermaket
+        <div className="title-t">
+            <img src={logo} alt="" />
         </div>
         <div className="registerArea">
             <div className="title">

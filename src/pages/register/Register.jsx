@@ -6,6 +6,7 @@ import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../image/Jia Bai Li World-3.png'
 
 export const Register = () => {
     //console log
@@ -104,12 +105,17 @@ export const Register = () => {
             }
           try{
             setLoader(true)
-            const res = await axios.post(process.env.REACT_APP_API_URL+"user/register", data)
+            // const res = await axios.post(process.env.REACT_APP_API_URL+"user/register", data)
+            const tempuser = {
+              phonenumber: data.phonenumber,
+              code: getRandomNumber()
+            }
+            console.log(tempuser)
+            const res = await axios.post(process.env.REACT_APP_API_URL+"user/temp", tempuser)
             setLoader(false)
-            if(!res.data.useravailable){
-              dispatch({type:"LOGIN_START"})
-              dispatch({type:"LOGIN_SUCCESS", payload: res.data})
-              navigate("/")
+            if(res.data.phonenumber){
+             
+              navigate("/ottp/", {state: {data}})
             }else{
                 setEP(true)
                 setWordPhone("Phone number already exist")            
@@ -126,6 +132,12 @@ export const Register = () => {
       };
     }
 
+    const getRandomNumber = () => {
+      // Generate a random number between 1000 and 9999
+      const randomNumber = Math.floor(1000 + Math.random() * 9000);
+      return randomNumber;
+    };
+
 
 
   return (
@@ -133,8 +145,8 @@ export const Register = () => {
         {loader && <div className="loaderb">
             <BeatLoader color="hsla(42, 89%, 65%, 1)" />
         </div>}
-        <div className="title">
-            Jiabaili Supeermaket
+        <div className="title-t">
+            <img src={logo} alt="" />
         </div>
         <div className="registerArea">
             <div className="title">
@@ -150,7 +162,7 @@ export const Register = () => {
                 <input id='lastname' onChange={handleChange} type="text" placeholder='Last name (optional)' className="fnmae" />
             </div>
             <div className="fname phone">
-                 <div className="name">Phone Number</div>
+                 <div className="name">Phone Number | Airtel Numbers Only</div>
                 {errP && <div className="error">{wordPhone}</div>}
                 <div className="inputarea">
                     <span>+265</span>

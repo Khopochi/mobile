@@ -4,11 +4,19 @@ $amazon: #f3d078;
 $link: rgb(0, 140, 255);
 .registerPage{
     height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 16px;
+    // padding-top: 15px;
     gap:15px;
+    .title-t{
+        margin-top: 15px;
+        img{
+            width: 10vw;
+            height: 10vw;
+        }
+    }
     position: relative;
     .loaderb{
         position: absolute;
@@ -23,8 +31,8 @@ $link: rgb(0, 140, 255);
         justify-content: center;
     }
     .registerArea{
-        height: 70vh;
-        width: 350px;
+        min-height: 70vh;
+        width: 80vw;
         border: 1px solid lightgray;
         display: flex;
         flex-direction: column;
@@ -33,6 +41,7 @@ $link: rgb(0, 140, 255);
         .title{
             font-weight: 500;
             font-size: 30px;
+
         }
         .fname{
            width: 100%;

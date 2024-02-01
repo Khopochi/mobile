@@ -8,7 +8,7 @@ const Completed = () => {
     <div>
         <div className="containerpay">
             <div className="icon"><FontAwesomeIcon icon={faCircleCheck} /></div>
-            <div className="word">Payment Successful</div>
+            <div className="worder">Payment Successful</div>
         </div>
       
     </div>

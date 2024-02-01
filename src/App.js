@@ -12,6 +12,7 @@ import Cart from './pages/cart/Cart';
 import Productsearch from './pages/search/Productsearch';
 import Categorysearch from './pages/search/Categorysearch';
 import Completed from './pages/completed/Completed';
+import OTP from './pages/otp/OTP';
 
 
 function App() {
@@ -21,7 +22,9 @@ function App() {
           <Route path='/register/' element={<Register/>} />
           <Route path='/cart/' element={<Cart/>} />
           <Route path='/login/' element={<Login />} />
-          <Route path='/completed/' element={<Completed/>} />
+          <Route path='/login/' element={<Login />} />
+          <Route path='/completed/' element={<Completed />} />
+          <Route path='/ottp/' element={<OTP/>} />
           <Route path='/' element={<Layout/>}>
             <Route index element={<Home/>} />
             <Route path='/categories/' element={<Category/> } />
@@ -39,6 +42,7 @@ function App() {
           <Route path='/categories'>
               <Route path=':id' element={<Categorysearch />} />
           </Route>
+          
           
         </Routes>
     </BrowserRouter>
