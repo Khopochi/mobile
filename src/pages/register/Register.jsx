@@ -162,7 +162,7 @@ export const Register = () => {
                 <input id='lastname' onChange={handleChange} type="text" placeholder='Last name (optional)' className="fnmae" />
             </div>
             <div className="fname phone">
-                 <div className="name">Phone Number | Airtel Numbers Only</div>
+                 <div className="name">Phone Number | <span className='airtel'>Airtel Numbers Only</span></div>
                 {errP && <div className="error">{wordPhone}</div>}
                 <div className="inputarea">
                     <span>+265</span>

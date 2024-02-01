@@ -92,6 +92,8 @@ $link: rgb(0, 140, 255);
             border-radius: 5px;
             background: $amazon;
             color: $mainColor;
+            width: 100%;
+
             cursor: pointer;
            }
            .divider {
@@ -146,4 +148,9 @@ $link: rgb(0, 140, 255);
     .conclusion{
         font-size: 12px;
     }
+}
+
+.airtel{
+    color: $onHover;
+    font-size: 12px;
 }
