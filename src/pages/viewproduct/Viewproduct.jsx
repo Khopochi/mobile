@@ -334,12 +334,15 @@ const Viewproduct = () => {
   return (
     <>
     {product && <Helmet>
-        <meta property="og:image" content={"https://api.jiabaili.shop/api/photos/"+product?.photos[0]} />
-        <meta name="twitter:image" content={"https://api.jiabaili.shop/api/photos/"+product?.photos[0]} />
-        <meta name="description" content={product.name+" | "+formatNumberWithCommas(product?.price)} />
-        <meta property="og:description" content={product.name+" | "+formatNumberWithCommas(product?.price)} />
-        <meta name="twitter:description" content={product.name+" | "+formatNumberWithCommas(product?.price)}/>
-      </Helmet>}
+      {console.log("Product Data:", product)}
+  <meta property="og:image" content={"https://api.jiabaili.shop/api/photos/"+product?.photos[0]} />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta rel="image_src" href={"https://api.jiabaili.shop/api/photos/"+product?.photos[0]} />
+  {/* ... other meta tags */}
+</Helmet>
+}
     {
       product && <div className='viewproduct'>
         {loader && <div className="loaderv">

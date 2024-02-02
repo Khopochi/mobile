@@ -451,13 +451,17 @@ const Cart = () => {
       };
 
       //calculte charge
-      const calculateCost = (chargeRanges,weight) => {
+      const calculateCost = (chargeRanges, weight) => {
+        // If weight is less than 1, assign weight as 1
+        const adjustedWeight = Math.max(weight, 1);
+      
         // Find the charge object that matches the weight range
-        const matchingCharge = chargeRanges.find(charge => weight >= charge.minweight && weight < charge.maxweight);
-    
+        const matchingCharge = chargeRanges.find(charge => adjustedWeight >= charge.minweight && adjustedWeight < charge.maxweight);
+      
         // If a matching charge is found, return its cost; otherwise, return an appropriate message or value
         return matchingCharge ? (matchingCharge.cost === 0 ? "0.00" : matchingCharge.cost) : 'No';
       };
+      
     useEffect(()=>{
         if(selectedl?._id.length > 0){
             setcost(calculateCost(selectedl.charge, calculateTotalWeight(carts)))
@@ -587,7 +591,7 @@ const Cart = () => {
                   </div>
                   <div className="rightp">
                     <div className="iermhfh">MWK {formatNumberWithCommas(calculateTotal(carts))}</div>
-                    <div className="iermhfh">{calculateTotalWeight(carts)}KGs</div>
+                    <div className="iermhfh">{Math.round(calculateTotalWeight(carts) * 100) / 100} KGs</div>
                     <div className="iermhfh">MWK {formatNumberWithCommas(calculateCost(selectedl.charge, calculateTotalWeight(carts)))}</div>
                     <div className="iermhfh">{selectedl.location.toLowerCase().includes('lilongwe') ? "Within 24hrs" : "Within 48hrs"}</div>
                     <div className="iermhfh ll">MWK {formatNumberWithCommas(calculateTotalSub(carts,cost))}</div>
@@ -609,7 +613,7 @@ const Cart = () => {
                 </div>
                 <div className="rightp">
                   <div className="iermhfh">MWK {formatNumberWithCommas(calculateTotal(carts))}</div>
-                  <div className="iermhfh">{calculateTotalWeight(carts)}KGs</div>
+                  <div className="iermhfh">{Math.round(calculateTotalWeight(carts) * 100) / 100} KGs</div>
                   {(selectedl?.location) && <div className="iermhfh">Free</div>}
                   {(!selectedl?.location) && <div className="iermhfh">None | Pick at shop</div>}
                   {(!selectedl?.location) && <div className="iermhfh">8am - 5:30pm</div>}
@@ -702,7 +706,7 @@ const Cart = () => {
       <div className="middle">
         <div className="topperheading">
             <div className="heading">Shopping Cart</div>
-            <div className="yutter">{carts.length} items in cart | Total Weight {calculateTotalWeight(carts)} (KGs)</div>
+            <div className="yutter">{carts.length} items in cart | Total Weight {Math.round(calculateTotalWeight(carts) * 100) / 100} (KGs)</div>
         </div>
         <div className="dsher">
             
