@@ -198,7 +198,10 @@ $amazonorange: #FF8F00;
         }
         .tproduct{
           display: flex;
-          gap: 10px;
+          // gap: 10px;
+          .rightp{
+            margin-left: 10px;
+          }
         }
         .ll{
           margin-top: 10px;
@@ -229,6 +232,12 @@ $amazonorange: #FF8F00;
       color: $onHover;
 
 
+    }
+    .titlediv1{
+      font-size: 12px;
+      font-weight: 500;
+      color: $amazongreen;
+      margin-top: 10px;
     }
     input{
         padding: 5px 10px;

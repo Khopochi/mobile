@@ -5,8 +5,14 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { FadeLoader } from 'react-spinners'
+import ReactGA from 'react-ga';
+
 
 const Deepcategory = () => {
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname + window.location.search);
+      }, []);
+    // import ReactGA from 'react-ga';
     const {id} = useParams()
     const {name} = useParams()
     const [data,setData] = useState()

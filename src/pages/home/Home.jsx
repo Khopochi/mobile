@@ -18,8 +18,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import DiscountShope from '../../components/DiscountShope';
 import CardCategory from '../../components/CardCategory';
+import ReactGA from 'react-ga';
+
 
 const Home = () => {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+// import ReactGA from 'react-ga';
+  
     const [load,setLoader] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = [
@@ -47,7 +54,7 @@ const Home = () => {
       const product = await axios.get(process.env.REACT_APP_API_URL + "product/getproducts");
       return product.data;
     } catch (err) {
-      console.error(err);
+      //console.error(err);
       return null;
     }
   };
@@ -57,7 +64,7 @@ const Home = () => {
       const product = await axios.get(process.env.REACT_APP_API_URL + "product/home");
       return product.data;
     } catch (err) {
-      console.error(err);
+      //console.error(err);
       return null;
     }
   };
@@ -67,7 +74,7 @@ const Home = () => {
       const product = await axios.get(process.env.REACT_APP_API_URL + "product/getshuffle");
       return product.data;
     } catch (err) {
-      console.error(err);
+      //console.error(err);
       return null;
     }
   };
@@ -119,7 +126,7 @@ const Home = () => {
     }
   }, []);
 
-  console.log(sessionStorage.getItem('jiabaitime'))
+  //console.log(sessionStorage.getItem('jiabaitime'))
 
 
 

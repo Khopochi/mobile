@@ -3,9 +3,15 @@ import './Category.scss'
 import Subcategory from '../../components/Subcategory'
 import axios from 'axios'
 import { FadeLoader } from 'react-spinners'
+import ReactGA from 'react-ga';
+
 
 
 const Category = () => {
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname + window.location.search);
+      }, []);
+    // import ReactGA from 'react-ga';
 
     const [load,setLoader] = useState(true)
     useEffect(() => {

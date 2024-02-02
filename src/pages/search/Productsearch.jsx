@@ -9,9 +9,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faFile, faHouse, faList, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../image/Jia Bai Li World-3.png'
 import { FadeLoader } from 'react-spinners'
+import ReactGA from 'react-ga';
+
 
 
 const Productsearch = () => {
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname + window.location.search);
+      }, []);
+    // import ReactGA from 'react-ga';
     const {id} = useParams()
     const {name} = useParams()
     const [data,setData] = useState()

@@ -32,13 +32,19 @@
 // OTP.js
 
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './otp.scss'; // Import the CSS file
 import { AuthContext } from '../../context/AuthContext';
 import { BeatLoader } from 'react-spinners';
+import ReactGA from 'react-ga';
+
 
 const OTP = () => {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+// import ReactGA from 'react-ga';
   const [values, setValues] = useState(['', '', '', '']);
   const location = useLocation();
   const [userr, setUser] = useState(location.state?.data);
@@ -110,7 +116,7 @@ console.log(values.join(""))
           />
         ))}
       </div>
-      <button onClick={onSubmit}>Submit</button>
+      <button className='buttonotp' onClick={onSubmit}>Submit</button>
     </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import "./layout.scss"
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faFile, faHouse, faList, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faCartShopping, faFile, faHouse, faList, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -77,7 +77,7 @@ const Layout = () => {
               const res = await axios.get(process.env.REACT_APP_API_URL+"product/search/"+credentials.searchTerm)
               setSearchItem(res.data)
               setClick(true)
-              console.log(res.data)
+              //console.log(res.data)
           }catch(err){
   
           }
@@ -86,7 +86,7 @@ const Layout = () => {
           setCredentials((prev) => ({...prev, [e.target.id]: e.target.value}))
       }
       useEffect(()=>{
-          if (credentials.searchTerm != " ") {
+          if (credentials.searchTerm != "") {
               const delayTimer = setTimeout(() => {
                 getSearchItem();
               }, 500); // Adjust the delay based on your needs (e.g., 500 milliseconds)
@@ -116,6 +116,8 @@ const Layout = () => {
             setClick(false)
         }
       },[credentials.searchTerm])
+
+      const [options,setOptions] = useState(false)
 
 
   return (
@@ -160,17 +162,22 @@ const Layout = () => {
                 <div className="icon"><FontAwesomeIcon icon={faCartShopping} /></div>
                 <div className="word">Cart</div>
             </div>
-            <div className="navbutton">
+            <div onClick={()=>navigate("/myorders/")} className="navbutton">
                 <div className="icon"><FontAwesomeIcon icon={faFile} /></div>
                 <div className="word">Orders</div>
             </div>
             <div className="navbutton">
-                {user && <div className="icon"><FontAwesomeIcon icon={faUser} /></div>}
+                {(user && options) && <div className="useroptions">
+                    <div className="optionstitle">{user.firstname} {user.lastname}</div>
+                    <div className="divider"></div>
+                    <div onClick={()=>navigate("/myorders/")} className="orderbutton"><span>View your orders</span><FontAwesomeIcon icon={faAngleRight} /></div>
+                </div>}
+                {user && <div onClick={()=>setOptions(!options)}  className="icon"><FontAwesomeIcon icon={faUser} /></div>}
                 {!user && <div onClick={()=>navigate("/login/")} className="icon"><FontAwesomeIcon icon={faUser} /></div>}
-                {user && <div className="word">Me</div>}
+                {user && <div onClick={()=>setOptions(!options)} className="word">Me</div>}
                 {!user && <div onClick={()=>navigate("/login/")} className="word">Sign In</div>}
             </div>
-        </div>
+         </div>
     </div>
   )
 }

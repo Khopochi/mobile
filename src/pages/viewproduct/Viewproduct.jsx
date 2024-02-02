@@ -9,10 +9,19 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import parse from 'html-react-parser';
 import { FadeLoader } from 'react-spinners';
 import logo from '../../image/Jia Bai Li World-3.png'
+import { Helmet } from 'react-helmet';
+import ReactGA from 'react-ga';
+
 
 
 
 const Viewproduct = () => {
+    // import ReactGA from 'react-ga';
+    useEffect(() => {
+      ReactGA.pageview(window.location.pathname + window.location.search);
+    }, []);
+  // import ReactGA from 'react-ga';
+
     const navigate = useNavigate()
     ///viewproduct original
     const {user} = useContext(AuthContext)
@@ -126,7 +135,7 @@ const Viewproduct = () => {
             weight: product.weight,
             location: finalTown
         }
-        console.log(datatoPost)
+        //console.log(datatoPost)
         setadding(true)
         try{
             const res = await axios.post(process.env.REACT_APP_API_URL+"user/addtocart/"+user._id ,datatoPost)
@@ -232,7 +241,7 @@ const Viewproduct = () => {
             const res = await axios.get(process.env.REACT_APP_API_URL+"product/search/"+credentials.searchTerm)
             setSearchItem(res.data)
             setClick(true)
-            console.log(res.data)
+            //console.log(res.data)
         }catch(err){
 
         }
@@ -241,7 +250,7 @@ const Viewproduct = () => {
         setCredentials((prev) => ({...prev, [e.target.id]: e.target.value}))
     }
     useEffect(()=>{
-        if (credentials.searchTerm != " ") {
+        if (credentials.searchTerm != "") {
             const delayTimer = setTimeout(() => {
               getSearchItem();
             }, 500); // Adjust the delay based on your needs (e.g., 500 milliseconds)
@@ -324,6 +333,13 @@ const Viewproduct = () => {
   
   return (
     <>
+    <Helmet>
+        <meta property="og:image" content={"https://api.jiabaili.shop/api/photos/"+product.photos[0]} />
+        <meta name="twitter:image" content={"https://api.jiabaili.shop/api/photos/"+product.photos[0]} />
+        <meta name="description" content={product.name+" | "+formatNumberWithCommas(product.price)} />
+        <meta property="og:description" content={product.name+" | "+formatNumberWithCommas(product.price)} />
+        <meta name="twitter:description" content={product.name+" | "+formatNumberWithCommas(product.price)}/>
+      </Helmet>
     {
       product && <div className='viewproduct'>
         {loader && <div className="loaderv">

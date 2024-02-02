@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo, faInfoCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
@@ -7,9 +7,15 @@ import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../image/Jia Bai Li World-3.png'
+import ReactGA from 'react-ga';
+
 
 
 export const Login = () => {
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname + window.location.search);
+      }, []);
+    // import ReactGA from 'react-ga';
 
     //navigate
     const navigate = useNavigate()
@@ -80,7 +86,7 @@ export const Login = () => {
                         }
                     }else{
                         dispatch({type:"LOGIN_SUCCESS", payload: res.data})
-                        console.log(res.data)
+                        //console.log(res.data)
                         setLoader(false)
                         navigate("/")
                             
@@ -133,7 +139,7 @@ export const Login = () => {
 
             <div className="fname">
                 <div className="termsandconditions">
-                By continuing, you agree to <span className='link'>JiaBaiLi's Supermarket Conditions of Use</span> and <span className='link'>Privacy Notice</span>.
+                By continuing, you agree to <span onClick={()=>navigate("/terms/")} className='link'>JiaBaiLi's Supermarket Conditions of Use</span> and <span onClick={()=>navigate("/terms/")} className='link'>Privacy Notice</span>.
                 </div>
             </div>
 

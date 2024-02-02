@@ -13,18 +13,24 @@ import Productsearch from './pages/search/Productsearch';
 import Categorysearch from './pages/search/Categorysearch';
 import Completed from './pages/completed/Completed';
 import OTP from './pages/otp/OTP';
+import Order from './pages/order/Order';
+import CaryView from './pages/viewthecart/CaryView';
+import Terms from './pages/cart/terms/Terms';
+import ReactGA from 'react-ga';
 
-
+ReactGA.initialize('G-P3H3K5H8T4');
 function App() {
   return (
     <BrowserRouter>
         <Routes>
           <Route path='/register/' element={<Register/>} />
           <Route path='/cart/' element={<Cart/>} />
+          <Route path='/terms/' element={<Terms/>} />
           <Route path='/login/' element={<Login />} />
           <Route path='/login/' element={<Login />} />
           <Route path='/completed/' element={<Completed />} />
           <Route path='/ottp/' element={<OTP/>} />
+          <Route path='/myorders/' element={<Order/>} />
           <Route path='/' element={<Layout/>}>
             <Route index element={<Home/>} />
             <Route path='/categories/' element={<Category/> } />
@@ -41,6 +47,9 @@ function App() {
           </Route>
           <Route path='/categories'>
               <Route path=':id' element={<Categorysearch />} />
+          </Route>
+          <Route path='/cartview/'>
+              <Route path=':id' element={<CaryView/>} />
           </Route>
           
           

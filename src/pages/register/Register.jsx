@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './register.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -7,9 +7,15 @@ import { BeatLoader } from 'react-spinners';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../image/Jia Bai Li World-3.png'
+import ReactGA from 'react-ga';
+
 
 export const Register = () => {
-    //console log
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+// import ReactGA from 'react-ga';
+    ////console log
     const {user,loading, dispatch} = useContext(AuthContext)
     const navigate = useNavigate()
 
@@ -30,7 +36,7 @@ export const Register = () => {
       })
       const handleChange = (e) => {
         setCredentials((prev) => ({...prev, [e.target.id]: e.target.value}))
-        console.log(e.target.id)
+        //console.log(e.target.id)
         if(e.target.id === 'firstname'){
             setEF(false)
         }
@@ -110,7 +116,7 @@ export const Register = () => {
               phonenumber: data.phonenumber,
               code: getRandomNumber()
             }
-            console.log(tempuser)
+            //console.log(tempuser)
             const res = await axios.post(process.env.REACT_APP_API_URL+"user/temp", tempuser)
             setLoader(false)
             if(res.data.phonenumber){
@@ -191,7 +197,7 @@ export const Register = () => {
 
             <div className="fname">
                 <div className="termsandconditions">
-                By creating an account, you agree to <span className='link'>JiaBaiLi's Supermarket Conditions of Use</span> and <span className='link'>Privacy Notice</span>.
+                By creating an account, you agree to <span onClick={()=>navigate("/terms/")} className='link'>JiaBaiLi's Supermarket Conditions of Use</span> and <span onClick={()=>navigate("/terms/")} className='link'>Privacy Notice</span>.
                 </div>
             </div>
 

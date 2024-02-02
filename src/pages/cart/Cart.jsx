@@ -12,11 +12,17 @@ import { SingleCart } from '../../components/cartpopy/SingleCart';
 import { io } from 'socket.io-client';
 import logo from '../../image/Jia Bai Li World-3.png'
 import { faCheckSquare, faCircleCheck, faSquare } from '@fortawesome/free-regular-svg-icons';
+import ReactGA from 'react-ga';
+
 
 
 
 
 const Cart = () => {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+// import ReactGA from 'react-ga';
     const navigate = useNavigate()
     ///viewproduct original
     const {user} = useContext(AuthContext)
@@ -108,7 +114,7 @@ const Cart = () => {
             const res = await axios.get(process.env.REACT_APP_API_URL+"product/search/"+credentials.searchTerm)
             setSearchItem(res.data)
             setClick(true)
-            console.log(res.data)
+            //////console.log(res.data)
         }catch(err){
 
         }
@@ -178,7 +184,7 @@ const Cart = () => {
         })
         }
     },[user?._id])
-    //console.log(onlineUsers)
+    ////////console.log(onlineUsers)
 
 
     const [code, setCode] = useState(undefined)
@@ -285,14 +291,14 @@ const Cart = () => {
 
        
         if(selectedPay === "airtel"){
-          console.log(calculateTotalSub(carts,cost))
+          //////console.log(calculateTotalSub(carts,cost))
             const orderinfo = {
                 userid: user._id,
                 cart: userCart,
                 total: calculateTotalSub(carts,cost),
                 status: "Waiting payment",
                 phone: numberfinal,
-                location: selectedl.location
+                location: selectedl?.location  ? selectedl?.location : "Pick at Shop"
             }
             setLoadingTop(true)
             try{
@@ -314,7 +320,8 @@ const Cart = () => {
                     action: "AUTH",  
                     amount : { currencyCode : "MWK", value : calculateTotalSTD(carts,cost) },
                 },
-                location: selectedl.location
+                location: selectedl?.location  ? selectedl?.location : "Pick at Shop"
+
             }
             setLoadingTop1(true)
             setstd(true)
@@ -330,7 +337,7 @@ const Cart = () => {
       }
       const [std,setstd] = useState(false)
 
-      //console.log(userCart)
+      ////////console.log(userCart)
       const [orderid, setorderid] = useState()
       const [userData, setUserData] = useState(null);
       // Function to fetch user data based on userId
@@ -340,7 +347,7 @@ const Cart = () => {
           const response = await axios.get(process.env.REACT_APP_API_URL+"ordersubmitted/getsinglebyorderid/"+orderid)
           setUserData(response.data);
         } catch (error) {
-          //console.error('Error fetching user data:', error);
+          ////////console.error('Error fetching user data:', error);
         }
       };
 
@@ -352,7 +359,7 @@ const Cart = () => {
             setUserData(response.data);
             // Your logic with the fetched data
           } catch (error) {
-            //console.error('Error fetching data:', error);
+            ////////console.error('Error fetching data:', error);
             // Handle the error as needed
           }
         };
@@ -364,18 +371,18 @@ const Cart = () => {
         // Cleanup: Stop the interval after 1 minute (60,000 milliseconds)
         const timeoutId = setTimeout(() => {
           clearInterval(intervalId);
-          //console.log('Interval stopped after 1 minute');
+          ////////console.log('Interval stopped after 1 minute');
         }, 60000);
     
         // Return cleanup function
         return () => {
           clearInterval(intervalId);
           clearTimeout(timeoutId);
-          //console.log('Cleanup: Interval cleared');
+          ////////console.log('Cleanup: Interval cleared');
         };}
       }, [orderid]);
 
-      //console.log(userData)
+      ////////console.log(userData)
 
       useEffect(()=>{
             if(userData){
@@ -410,7 +417,7 @@ const Cart = () => {
       })
 
       const SerachFu = async () => {
-        console.log(searchterm.term)
+        //////console.log(searchterm.term)
           const res = await axios.get(process.env.REACT_APP_API_URL+"SHIPPING/SEARCH/"+searchterm.term)
           setSearch(res.data)
       }
@@ -454,7 +461,7 @@ const Cart = () => {
     useEffect(()=>{
         if(selectedl?._id.length > 0){
             setcost(calculateCost(selectedl.charge, calculateTotalWeight(carts)))
-            console.log(calculateCost(selectedl.charge, calculateTotalWeight(carts)))
+            //////console.log(calculateCost(selectedl.charge, calculateTotalWeight(carts)))
         }
     },[selectedl])
 
@@ -499,6 +506,13 @@ const Cart = () => {
       showloca(false)
       
     }
+
+
+    const setpickcost = (cst) => {
+      setcost("0.00")
+    }
+
+    // const  = selected1.location && selected1.location.toLowerCase().includes('lilongwe');
   
   return (
     <>
@@ -557,6 +571,7 @@ const Cart = () => {
           </div>
          
         </div>}
+        {!cost && <div onClick={()=>setpickcost()} className="titlediv1">Pick at shop?</div>}
         {(cost && !cStatus) && <div className="info">
           {(cost != 0.00 && cost != "No") && 
               <span className="total">
@@ -567,12 +582,14 @@ const Cart = () => {
                     <div className="leutem">Total for goods</div>
                     <div className="leutem">Total KGs</div>
                     <div className="leutem">Delivery Fee | {selectedl.location}</div>
+                    <div className="leutem">Delivery Period</div>
                     <div className="leutem ll">Total</div>
                   </div>
                   <div className="rightp">
                     <div className="iermhfh">MWK {formatNumberWithCommas(calculateTotal(carts))}</div>
                     <div className="iermhfh">{calculateTotalWeight(carts)}KGs</div>
                     <div className="iermhfh">MWK {formatNumberWithCommas(calculateCost(selectedl.charge, calculateTotalWeight(carts)))}</div>
+                    <div className="iermhfh">{selectedl.location.toLowerCase().includes('lilongwe') ? "Within 24hrs" : "Within 48hrs"}</div>
                     <div className="iermhfh ll">MWK {formatNumberWithCommas(calculateTotalSub(carts,cost))}</div>
                   </div>
                 </span>
@@ -583,13 +600,21 @@ const Cart = () => {
                 <div className="leftp">
                   <div className="leutem">Total for goods</div>
                   <div className="leutem">Total KGs</div>
-                  <div className="leutem">Delivery Fee | {selectedl.location}</div>
+                  {(selectedl?.location) &&<div className="leutem">Delivery Fee | {selectedl.location}</div>}
+                  {(!selectedl?.location) &&<div className="leutem">Delivery Fee </div>}
+                  {(!selectedl?.location) &&<div className="leutem">Collecting time </div>}
+                  {(selectedl?.location) &&<div className="leutem">Delivery Period </div>}
+
                   <div className="leutem ll">Total</div>
                 </div>
                 <div className="rightp">
                   <div className="iermhfh">MWK {formatNumberWithCommas(calculateTotal(carts))}</div>
                   <div className="iermhfh">{calculateTotalWeight(carts)}KGs</div>
-                  <div className="iermhfh">Free</div>
+                  {(selectedl?.location) && <div className="iermhfh">Free</div>}
+                  {(!selectedl?.location) && <div className="iermhfh">None | Pick at shop</div>}
+                  {(!selectedl?.location) && <div className="iermhfh">8am - 5:30pm</div>}
+                  {(selectedl?.location) && <div className="iermhfh">Within 24hrs</div>}
+
                   <div className="iermhfh ll">MWK {formatNumberWithCommas(calculateTotalSub(carts,cost))}</div>
                 </div>
               </span>
