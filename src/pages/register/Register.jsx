@@ -152,7 +152,7 @@ export const Register = () => {
             <BeatLoader color="hsla(42, 89%, 65%, 1)" />
         </div>}
         <div className="title-t">
-            <img src={logo} alt="" />
+            <img  onClick={()=>navigate("/")} src={logo} alt="" />
         </div>
         <div className="registerArea">
             <div className="title">

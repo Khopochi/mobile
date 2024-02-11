@@ -16,10 +16,29 @@ const Layout = () => {
     const navigate = useNavigate()
     const {user} = useContext(AuthContext)
     const [load,setLoader] = useState(true)
-    const [activebutton,setbutton] = useState(() => {
-        // Load the active button from localStorage on component mount
-        return sessionStorage.getItem('activeButton') || "home";
-      })
+    const [activebutton, setbutton] = useState(() => {
+        // Check if the current location is the home page
+        const isHomePage = window.location.pathname === "/";
+      
+        // Set active button based on current location
+        if (isHomePage) {
+          return "home";
+        } else {
+          // Load the active button from sessionStorage if not home
+          return sessionStorage.getItem('activeButton') || "home";
+        }
+      });
+
+      useEffect (()=>{
+        const isHomePage = window.location.pathname === "/";
+        if(isHomePage) {
+            setbutton("home")
+          }else{
+            setbutton("home")
+          }
+
+      }, [])
+      
     const setActive = (name,location) => {
         setbutton(name)
         navigate(location)
@@ -124,7 +143,7 @@ const Layout = () => {
     <div className='layout'>
         <div className="top">
             <div className="logoandcounrey">
-                <div className="logo">
+                <div onClick={()=>navigate("/")} className="logo">
                     <img className='ourlogo' src={logo} alt="" /> <span className='jiabaili'>JiaBaiLi</span> 
                 </div>
                 <div className="flag">

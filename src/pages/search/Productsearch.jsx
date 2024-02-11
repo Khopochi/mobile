@@ -192,7 +192,7 @@ const Productsearch = () => {
         </div>}
        <div className="top">
             <div className="logoandcounrey">
-                <div className="logo">
+                <div onClick={()=>navigate("/")} className="logo">
                     <img className='ourlogo' src={logo} alt="" /> <span className='jiabaili'>JiaBaiLi</span> 
                 </div>
                 <div className="flag">

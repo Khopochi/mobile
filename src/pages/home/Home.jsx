@@ -19,6 +19,10 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import DiscountShope from '../../components/DiscountShope';
 import CardCategory from '../../components/CardCategory';
 import ReactGA from 'react-ga';
+import one from '../../image/1.jpg'
+import two from '../../image/2.jpg'
+import three from '../../image/4.jpg'
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
@@ -30,10 +34,12 @@ const Home = () => {
     const [load,setLoader] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = [
-    'https://amazcart.ischooll.com/public/uploads/images/04-01-2023/63b508b5b7c35.jpeg',
-    'https://amazcart.ischooll.com/public/uploads/images/05-01-2023/63b6990a4cd4d.jpeg',
-    'https://amazcart.ischooll.com/public/uploads/images/03-01-2023/63b43e3b21095.jpeg'
+    one,
+    two,
+    three
   ];
+
+  const navigate = useNavigate()
 
   const [currentTime, setCurrentTime] = useState(new Date());
   let storedProducts = sessionStorage.getItem('products');
@@ -139,6 +145,15 @@ const Home = () => {
             loading items...
         </div>}
         <div className="image-sliderrr">
+            <div className="background">
+              <div className="bkinside">
+                  <div className="insideagainbk">
+                    <div className="bkword">
+                      {/* Your Ultimate Destination for Online Shopping */}
+                    </div>
+                  </div>
+              </div>
+            </div>
             {images.map((image, index) => (
             <img
                 key={index}
@@ -150,61 +165,61 @@ const Home = () => {
         ))}
         </div>
         <div className="shopdeeSubcategories">
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/657952bb37e8cd6092d11d12")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon1} alt="" />
               </div>
               <div className="shopdeeword">Appliances </div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/6579521f37e8cd6092d11cf2")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon2} alt="" />
               </div>
               <div className="shopdeeword">Kitchen</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/657951f837e8cd6092d11cee")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon3} alt="" />
               </div>
               <div className="shopdeeword">Tools</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/657951ec37e8cd6092d11cde")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon4} alt="" />
               </div>
               <div className="shopdeeword">Electronics</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/6579522f37e8cd6092d11cfa")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon5} alt="" />
               </div>
               <div className="shopdeeword">Toys</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/6579523937e8cd6092d11cfe")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon6} alt="" />
               </div>
               <div className="shopdeeword">Fashion</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/657951e437e8cd6092d11cdb")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon7} alt="" />
               </div>
               <div className="shopdeeword">Hardware</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/6579522637e8cd6092d11cf6")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon8} alt="" />
               </div>
               <div className="shopdeeword">Stationary</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/6579524d37e8cd6092d11d02")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon9} alt="" />
               </div>
               <div className="shopdeeword">Automobile</div>
            </div>
-           <div className="shopdeeitem">
+           <div onClick={()=>navigate("/categories/657952f037e8cd6092d11d16")} className="shopdeeitem">
               <div className="shopdicon"> 
                   <img src={icon10} alt="" />
               </div>
