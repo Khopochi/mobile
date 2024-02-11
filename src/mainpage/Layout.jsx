@@ -176,15 +176,24 @@ const Layout = () => {
                 <div className={`icon ${activebutton === "cat" ? 'activenav' : ''}`}><FontAwesomeIcon icon={faList} /></div>
                 <div className="word">Categories</div>
             </div>
-            <div onClick={()=>navigate("/cart/")} className="navbutton big">
+            {user && <div onClick={()=>navigate("/cart/")} className="navbutton big">
                 {count != 0 && <div className="count">{count}</div>}
                 <div className="icon"><FontAwesomeIcon icon={faCartShopping} /></div>
                 <div className="word">Cart</div>
-            </div>
-            <div onClick={()=>navigate("/myorders/")} className="navbutton">
+            </div>}
+            {!user && <div onClick={()=>navigate("/login/")} className="navbutton big">
+                {count != 0 && <div className="count">{count}</div>}
+                <div className="icon"><FontAwesomeIcon icon={faCartShopping} /></div>
+                <div className="word">Cart</div>
+            </div>}
+            {user && <div onClick={()=>navigate("/myorders/")} className="navbutton">
                 <div className="icon"><FontAwesomeIcon icon={faFile} /></div>
                 <div className="word">Orders</div>
-            </div>
+            </div>}
+            {!user && <div onClick={()=>navigate("/login/")} className="navbutton">
+                <div className="icon"><FontAwesomeIcon icon={faFile} /></div>
+                <div className="word">Orders</div>
+            </div>}
             <div className="navbutton">
                 {(user && options) && <div className="useroptions">
                     <div className="optionstitle">{user.firstname} {user.lastname}</div>
