@@ -143,7 +143,7 @@ const Layout = () => {
     <div className='layout'>
         <div className="top">
             <div className="logoandcounrey">
-                <div onClick={()=>navigate("/")} className="logo">
+                <div className="logo">
                     <img className='ourlogo' src={logo} alt="" /> <span className='jiabaili'>JiaBaiLi</span> 
                 </div>
                 <div className="flag">
