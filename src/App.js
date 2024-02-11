@@ -17,6 +17,7 @@ import Order from './pages/order/Order';
 import CaryView from './pages/viewthecart/CaryView';
 import Terms from './pages/cart/terms/Terms';
 import ReactGA from 'react-ga';
+import { Forgot } from './pages/login/Forgot';
 
 ReactGA.initialize('G-P3H3K5H8T4'); 
 function App() {
@@ -24,6 +25,7 @@ function App() {
     <BrowserRouter>
         <Routes>
           <Route path='/register/' element={<Register/>} />
+          <Route path='/reset/' element={<Forgot/>} />
           <Route path='/cart/' element={<Cart/>} />
           <Route path='/terms/' element={<Terms/>} />
           <Route path='/login/' element={<Login />} />

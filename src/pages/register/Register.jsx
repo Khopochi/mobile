@@ -179,7 +179,7 @@ export const Register = () => {
             <div className="fname">
                 <div className="name">Password</div>
                 {errpass && <div className="error">error pass</div>}
-                <input id='password' onChange={handleChange} type="text" className="fnmae" />
+                <input id='password' onChange={handleChange} type="password" className="fnmae" />
                 <div className='passadvice'>
                     <span><FontAwesomeIcon icon={faInfoCircle} /></span>
                     Passwords must be at least 6 characters
@@ -188,7 +188,7 @@ export const Register = () => {
             <div className="fname">
                 <div className="name">Re-enter password</div>
                 {errpaas2 && <div className="error">{wordPass}</div>}
-                <input id='confirm' onChange={handleChange} type="text"  className="fnmae" />
+                <input id='confirm' onChange={handleChange} type="password"  className="fnmae" />
             </div>
 
             <div className="fname">
