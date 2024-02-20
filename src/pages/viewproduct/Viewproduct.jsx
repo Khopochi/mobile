@@ -1,4 +1,4 @@
-import { faMagnifyingGlass, faShop } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faMagnifyingGlass, faShop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useContext, useEffect, useRef, useState } from 'react'
@@ -9,8 +9,9 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import parse from 'html-react-parser';
 import { FadeLoader } from 'react-spinners';
 import logo from '../../image/Jia Bai Li World-3.png'
-import { Helmet } from 'react-helmet';
 import ReactGA from 'react-ga';
+import { Description } from '@mui/icons-material';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -334,12 +335,15 @@ const Viewproduct = () => {
   return (
     <>
     {product && <Helmet>
-      {console.log("Product Data:", product)}
-  <meta property="og:image" content={"https://api.jiabaili.shop/api/photos/"+product?.photos[0]} />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta rel="image_src" href={"https://api.jiabaili.shop/api/photos/"+product?.photos[0]} />
+      <meta charSet="utf-8" />
+      <title>{product.name}</title>
+      {/* <meta property='og:title' content='Hello' /> */}
+      <meta property="og:title" content="Your Title" />
+                <meta property="og:description" content="Your Description" />
+                <meta property="og:image" content="http://example.com/your-thumbnail.jpg" />
+                <meta property="og:url" content="http://example.com/your-page-url" />
+                <meta property="og:type" content="website" />
+      <meta name="description" content={"Price: K"+formatNumberWithCommas(product.price)} />
   {/* ... other meta tags */}
 </Helmet>
 }
@@ -429,7 +433,7 @@ const Viewproduct = () => {
       </div>
       <div className="bottom">
           <div onClick={()=>navigate("/cart/")} className="buttom-items">
-              <FontAwesomeIcon icon={faShop} />
+              <FontAwesomeIcon icon={faCartShopping} />
               {(count != 0) && <span className="count">{(count != 0) ? count : ""}</span>}
           </div>
           <div onClick={()=>addClicked()} className="bottom-word">
