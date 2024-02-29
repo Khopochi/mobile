@@ -5,7 +5,7 @@ import axios from 'axios';
 import { FadeLoader } from 'react-spinners';
 
 const LottoSpinner = () => {
-  let arrayPast = [995810691,998039353,986469995,993945872,999038828]
+  let arrayPast = [996755675,993120740,999727973,995810691,998039353,986469995,993945872,999038828]
   const [vList, setList] = useState()
   const [officialList, setOfficialList] = useState()
 

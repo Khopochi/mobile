@@ -25,19 +25,19 @@ const Layout = () => {
           return "home";
         } else {
           // Load the active button from sessionStorage if not home
-          return sessionStorage.getItem('activeButton') || "home";
+          return "cat"
         }
       });
 
-      useEffect (()=>{
-        const isHomePage = window.location.pathname === "/";
-        if(isHomePage) {
-            setbutton("home")
-          }else{
-            setbutton("home")
-          }
+    //   useEffect (()=>{
+    //     const isHomePage = window.location.pathname === "/";
+    //     if(isHomePage) {
+    //         setbutton("home")
+    //       }else{
+    //         setbutton("home")
+    //       }
 
-      }, [])
+    //   }, [])
       
     const setActive = (name,location) => {
         setbutton(name)
@@ -57,9 +57,11 @@ const Layout = () => {
     useEffect(()=>{
         getCount()
     },[])
-    useEffect(() => {
-        sessionStorage.setItem('activeButton', activebutton);
-      }, [activebutton]);
+
+    console.log(activebutton)
+    // useEffect(() => {
+    //     sessionStorage.setItem('activeButton', activebutton);
+    //   }, [activebutton]);
 
       const [searchWord, setSearchWord] = useState()
      
